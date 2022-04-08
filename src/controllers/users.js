@@ -44,6 +44,24 @@ class Users{
 
         res.json(newuser)
     }
+
+    async add (req,res){
+        try{
+            const { fio,position,adress_id } = req.body
+    
+            await UserModel.create({
+                fio,
+                position,
+                adress_id
+            })
+
+            res.json({message:"Succes"}).status(200)
+        }
+
+        catch(error){
+            res.json({message:error.message}).status(400)
+        }
+    } 
 }
 
 
