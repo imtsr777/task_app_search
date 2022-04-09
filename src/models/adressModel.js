@@ -15,7 +15,10 @@ const Adresses = sequelize.define('Adress',{
          }
      }
 },{
-    tableName:"adresses"
+    tableName:"adresses",
+    timestamps: false,
+        createdAt:false,
+        updatedAt:false
 })
 
 Adresses.sync()
