@@ -1,1 +1,8 @@
 /node_modules
+
+
+
+# PG_DATABASE=stajirovka
+# PG_USER=postgres
+# PG_PASSWORD=3816
+# PG_HOST=localhost

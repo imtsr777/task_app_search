@@ -14,10 +14,6 @@ class Users{
         let word = req.body.word
         word = word.split(" ")
 
-        let sql_query = `
-            select u.fio,u.position,a.adress_name  from users as u
-            inner join adresses as a on u.adress_id=a.adress_id where
-        `
 
         async function find_user(query_string){
             console.time()
@@ -27,19 +23,28 @@ class Users{
         }
 
         for(let keyword of word){
-            fio_lst.push(`u.fio ilike '%${ keyword }%'`)
-            position_lst.push(`u.position ilike '%${ keyword }%'`)
-            adress_lst.push(`a.adress_name ilike '%${ keyword }%'`)
+            fio_lst.push(`fio ilike '%${ keyword }%'`)
+            position_lst.push(`position ilike '%${ keyword }%'`)
+            adress_lst.push(`ad.adress_name ilike '%${ keyword }%'`)
         }
+
+        
 
         fio_lst = fio_lst.join(" or ")
         position_lst = position_lst.join(" or ")
         adress_lst = adress_lst.join(" or ")
+
+        let my_query = `(${fio_lst}) and (${position_lst})`
+
+        let sql_query = `
+        select t1.fio,t1.position,ad.adress_name from
+        (select * from users where ${my_query}) as t1 
+        inner join adresses as ad on
+               t1.adress_id=ad.adress_id where ${adress_lst};
+        `
         
-        let my_query = sql_query+` (${fio_lst}) and (${position_lst}) and (${adress_lst})`
-        
-        let selected = await find_user(my_query)
-        console.log(my_query)
+
+        let selected = await find_user(sql_query)
         res.json(selected)
     }
 
