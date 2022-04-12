@@ -158,3 +158,6 @@ select fio,position from users
 select t1.fio,t1.position,ad.adress_name from (select * from users where fio ilike '%is%') as t1 
        inner join adresses as ad on
               t1.adress_id=ad.adress_id where ad.adress_name ilike '%on%';
+
+
+select * from users

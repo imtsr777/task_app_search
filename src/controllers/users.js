@@ -42,7 +42,6 @@ class Users{
         inner join adresses as ad on
                t1.adress_id=ad.adress_id where ${adress_lst};
         `
-        
 
         let selected = await find_user(sql_query)
         res.json(selected)
