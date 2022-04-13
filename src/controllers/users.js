@@ -39,8 +39,8 @@ class Users{
         let sql_query = `
         select t1.fio,t1.position,ad.adress_name from
         (select * from users where ${my_query}) as t1 
-        inner join adresses as ad on
-               t1.adress_id=ad.adress_id where ${adress_lst};
+            inner join adresses as ad on
+                t1.adress_id=ad.adress_id where ${adress_lst};
         `
 
         let selected = await find_user(sql_query)
